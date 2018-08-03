@@ -1,59 +1,102 @@
-var slider = document.getElementById("myRange");
-var output = document.getElementById("demo");
-output.innerHTML = slider.value;
-
+var slider1 = document.getElementById("myRange1");
+var output1 = document.getElementById("demo1");
 var slider2 = document.getElementById("myRange2");
 var output2 = document.getElementById("demo2");
-output2.innerHTML = slider2.value;
-
 var slider3 = document.getElementById("myRange3");
 var output3 = document.getElementById("demo3");
-output3.innerHTML = slider3.value;
 
-slider.oninput = function() {
-  output.innerHTML = this.value;
-  // output2.innerHTML = 100 - this.value;
-  // myRange2.value = 100 - this.value;
-  adjust();
+var num = 0;
+
+setValues(slider1, output1);
+setValues(slider2, output2);
+setValues(slider3, output3);
+
+function setValues(slider, output) {
+  output.innerHTML = slider.value;
+}
+
+slider1.oninput = function() {
+  setValues(slider1, output1);
+  adjust(1);
 }
 
 slider2.oninput = function() {
-  output2.innerHTML = this.value;
+  setValues(slider2, output2);
+  adjust(2);
 }
 
 slider3.oninput = function() {
-  output3.innerHTML = this.value;
+  setValues(slider3, output3);
+  adjust(3);
 }
 
-function adjust() {
+function adjust(num) {
 
   var val1 = 0;
   var val2 = 0;
   var val3 = 0;
 
-  val1 = parseFloat(output.innerHTML);
+  val1 = parseFloat(output1.innerHTML);
   val2 = parseFloat(output2.innerHTML);
   val3 = parseFloat(output3.innerHTML);
 
-  total = val1 + val2 + val3;
+  var total = 0;
+  var total = val1 + val2 + val3;
 
   if(total > 100) {
 
-    // alert("greater than 100");
+    if(num == 1) {
+      var used = val1;
+      var free = 100 - used;
+      var addl = val2 + val3;
 
-    var used = val1;
-    var free = 100 - used;
-    var addl = val2 + val3;
-
-    var r1 = (val2 / addl) * free; 
-    var r2 = (val3 / addl) * free;
+      var r1 = (val2 / addl) * free; 
+      r1 = round(r1);
+      var r2 = (val3 / addl) * free;
+      r2 = round(r2);
                 
-    // alert("r1 =" + r1);
-    
-    output2.innerHTML = r1;
-    myRange2.value = r1;
+      output2.innerHTML = r1;
+      myRange2.value = r1;
 
-    output3.innerHTML = r2;
-    myRange3.value = r2;	
+      output3.innerHTML = r2;
+      myRange3.value = r2;	
+    
+    } else if(num == 2) {
+        var used = val2;
+	var free = 100 - used;
+	var addl = val1 + val3;
+
+	var r1 = (val1 / addl) * free;
+	r1 = round(r1);
+	var r2 = (val3 / addl) * free;
+	r2 = round(r2);
+
+	output1.innerHTML = r1;
+	myRange1.value = r1;
+
+	output3.innerHTML = r2;
+	myRange3.value = r2;
+
+    } else if(num == 3) {
+        var used = val3;
+	var free = 100 - used;
+	var addl = val1 + val2;
+
+	var r1 = (val1 / addl) * free;
+	r1 = round(r1);
+	var r2 = (val2 / addl) * free;
+	r2 = round(r2);
+
+	output1.innerHTML = r1;
+	myRange1.value = r1;
+
+	output2.innerHTML = r2;
+	myRange2.value = r2;
+
     }
+  }
+}
+
+function round(number) {
+	return Math.round(number * 100) / 100
 }
