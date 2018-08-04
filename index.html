@@ -3,13 +3,18 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+
+p {
+    display: inline-block;
+}
+
 .slidecontainer {
-    width: 100%;
+    width: 50%;
 }
 
 .slider {
     -webkit-appearance: none;
-    width: 30%;
+    width: 80%;
     height: 15px;
     border-radius: 5px;
     background: #d3d3d3;
@@ -40,28 +45,54 @@
     background: #4CAF50;
     cursor: pointer;
 }
+
+.results {
+    display: inline-block;
+}
+
 </style>
 </head>
 <body>
 
 <h1>Round Range Slider</h1>
 
-<div class="slidecontainer1">
+
+<div class="sliders">
+<div class="slidecontainer">
   <h2>Olive Oil</h2>
   <input type="range" min="0" max="100" value="0" class="slider" id="myRange1">
   Value: <span id="demo1"></span>
 </div>
 
-<div class="slidecontainer2">
+<div class="slidecontainer">
   <h2>Coconut Oil</h2>
   <input type="range" min="0" max="100" value="0" class="slider" id="myRange2">
   Value: <span id="demo2"></span>
 </div>
 
-<div class="slidecontainer3">
+<div class="slidecontainer">
   <h2>Palm Oil</h2>
   <input type="range" min="0" max="100" value="0" class="slider" id="myRange3">
   Value: <span id="demo3"></span>
+</div>
+</div>
+
+<div class="results">
+  <h2>Results</h2>
+  <p>SAP Value</p>
+  <p>Lauric</p>
+  <p>Myristic</p>
+  <p>Linoleic</p>
+  <p>Oleic</p>
+  <p>Palmitic</p>
+  <p>Ricinoleic</p>
+  <p>Stearic</p>
+  <p>Iodine</p>
+
+    <div class="result_values">
+	<span id="lauric_value"></span>
+	<span id="oleic_value"></span>
+    </div>
 </div>
 
 <script src="script.js"></script>

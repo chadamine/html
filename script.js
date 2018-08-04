@@ -100,3 +100,16 @@ function adjust(num) {
 function round(number) {
 	return Math.round(number * 100) / 100
 }
+
+// Coconut
+//
+// SAP NaOH/KOH: .178/.251
+// Luaric: 48
+// Myristic: 20
+// Linoleic: 2 
+// Oleic: 8
+// Palmitic: 9.5
+// Ricinoleic: 0
+// Stearic: 2
+// Iodine: 9.5
+
