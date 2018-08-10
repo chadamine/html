@@ -30,9 +30,31 @@ slider3.oninput = function() {
   adjust(3);
 }
 
+function increment(slider, output, num) {
+	var inc = parseFloat(slider.value) + 1;	
+	slider.value = inc;
+	output.innerHTML = inc;
+	adjust(num);
+
+}
+
+function decrement(slider, output, num) {
+	var val = parseFloat(slider.value);
+	var dec = 0;
+
+	if(val > 0)
+		var dec = parseFloat(slider.value) - 1;
+
+	slider.value = dec;
+	output.innerHTML = dec;
+	adjust(num);
+
+}
+
 // change oil values
 function adjust(num) {
 
+	//alert("num is " + num);
   var val1 = 0;
   var val2 = 0;
   var val3 = 0;
@@ -96,11 +118,24 @@ function adjust(num) {
 
     }
   }
+
+	calcTotal();
+}
+
+function calcTotal() {
+  val1 = parseFloat(output1.innerHTML);
+  val2 = parseFloat(output2.innerHTML);
+  val3 = parseFloat(output3.innerHTML);
+
+	total = val1 + val2 + val3;
+
+	document.getElementById("total").innerHTML = total;
 }
 
 // round results to 100ths
 function round(number) {
-	return Math.round(number * 100) / 100;
+	return Math.round(number);
+	//return Math.round(number * 100) / 100;
 }
 
 //simplest barchart

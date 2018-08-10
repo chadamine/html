@@ -55,23 +55,29 @@ p {
 <body>
 
 <h1>Round Range Slider</h1>
-
+Total: <span id="total_title"></span><span id="total"></span>
 <div class="sliders">
-<div class="slidecontainer">
-  <h2>Olive Oil</h2>
-  <input type="range" min="0" max="100" value="0" class="slider" id="myRange1">
-  Value: <span id="demo1"></span>
-</div>
+	<div class="slidecontainer">
+	  <h2>Olive Oil</h2>
+		<button onClick="decrement(slider1, output1, 1)">-</button>
+	  <input type="range" min="0" max="100" value="0" class="slider" id="myRange1">
+		<button onClick="increment(slider1,output1, 1)">+</button>
+	  Value: <span id="demo1"></span>
+	</div>
 
 <div class="slidecontainer">
   <h2>Coconut Oil</h2>
+	<button onClick="decrement(slider2, output2, 2)">-</button>
   <input type="range" min="0" max="100" value="0" class="slider" id="myRange2">
+	<button onClick="increment(slider2, output2, 2)">+</button>
   Value: <span id="demo2"></span>
 </div>
 
 <div class="slidecontainer">
   <h2>Palm Oil</h2>
+	<button onClick="decrement(slider3, output3, 3)">-</button>
   <input type="range" min="0" max="100" value="0" class="slider" id="myRange3">
+	<button onClick="increment(slider3, output3, 3)">+</button>
   Value: <span id="demo3"></span>
 </div>
 </div>
