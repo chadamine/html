@@ -134,72 +134,47 @@ function calcTotal() {
 
 // round results to 100ths
 function round(number) {
-	return Math.round(number);
+	return Math.round(number * 10) / 10;
+	//return Math.round(number);
 	//return Math.round(number * 100) / 100;
 }
 
 //simplest barchart
 var c = document.getElementById("results_canvas");
 var ctx = c.getContext("2d");
-ctx.fillRect(0,0,40,100);
-ctx.fillRect(45,0,40,75);
-ctx.fillRect(90, 0, 40, 50);
+var width = 40; // bar width
+var canvasHeight = Math.round(window.innerHeight / 5);
 
-// BARCHART
-var resultsCanvas = document.getElementById("myCanvas");
-resultsCanvas.width = 300;
-resultsCanvas.height = 300;
+c.height = canvasHeight;
+c.width = window.innerWidth;
 
-var ctx = resultsCanvas.getContext("2d");
+var lauric = 48;
+var lauricHeight = calcHeight(lauric, canvasHeight);
+var lauricY = calcY(lauricHeight, canvasHeight);
 
-function drawLine(ctx, startX, startY, endX, endY, color) {
-  ctx.save();
-  ctx.strokeStyle = color;
-  ctx.beginPath();
-  ctx.moveTo(startX, startY);
-  ctx.lineTo(endX, endY);
-  ctx.stroke();
-  ctx.restore();
+var myristic = 20;
+var myristicHeight = calcHeight(myristic, canvasHeight);
+var myristicY = calcY(myristic, canvasHeight);
+
+var linoleic = 2;
+var linoleicHeight = calcHeight(linoleic, canvasHeight);
+var linoleicY = calcY(linoleic, canvasHeight);
+
+function calcHeight(value, canvasHeight) {
+	var ratio = value / 100;
+	return canvasHeight * ratio;
 }
 
-var Barchart = function(options) {
-	this.options = options;
-	this.canvas = options.canvas;
-	this.ctx = this.canvas.getContext("2d");
-	this.colors = options.colors;
-
-	this.draw = function(){
-		var maxValue = 0;
-		for(var categ in this.options.data){
-			maxValue = Math.max(maxValue, this.options.data[categ]);
-		}
-		var canvasActualHeight = this.canvas.height - this.options.padding * 2;
-		var canvastActualWidth = this.canvas.width = this.options.padding * 2;
-    
-		var barIndex = 0;
-		var barQty = object.keys(this.options.data).length;
-		var barSize = (canvasActualWidth)/numberOfBars;
-
-		for (categ in this.options.data) {
-			var val = this.options.data[categ];
-			var barHeight = Math.round(canvasActualHeight * val/maxValue);
-			drawBar(this.ctx,
-			this.options.padding + barIndex * barSize,
-			this.canvas.height - barHeight - this.options.padding,
-			barSize, 
-			barHeight,
-			this.colors[barINdex%this.colors.length]);
-
-			barIndex++;
-		}
-
-	}
+function calcY(value, height) {
+	return height - value;
 }
 
-var resultsBarchart = new Barchart({
-	canvas:resultsCanvas,
-	colors:["#a55ca5", "#67b6c7", "bccd7a", "#eb9743"]
-});
+//ctx.fillRect(x, y, width, height);
+ctx.strokeRect(0, 0, c.width, c.height);
+
+ctx.fillRect(5, lauricY, width, lauricHeight);
+ctx.fillRect(50, myristicY, width, myristicHeight);
+ctx.fillRect(95, linoleicY, width, linoleicHeight);
 
 // Coconut
 //
