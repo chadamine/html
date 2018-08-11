@@ -79,10 +79,10 @@ function adjust(num) {
       r2 = round(r2);
                 
       output2.innerHTML = r1;
-      myRange2.value = r1;
+      slider2.value = r1;
 
       output3.innerHTML = r2;
-      myRange3.value = r2;	
+      slider3.value = r2;	
     
     } else if(num == 2) {
         var used = val2;
@@ -95,10 +95,10 @@ function adjust(num) {
 	r2 = round(r2);
 
 	output1.innerHTML = r1;
-	myRange1.value = r1;
+	slider1.value = r1;
 
 	output3.innerHTML = r2;
-	myRange3.value = r2;
+	slider3.value = r2;
 
     } else if(num == 3) {
         var used = val3;
@@ -111,15 +111,16 @@ function adjust(num) {
 	r2 = round(r2);
 
 	output1.innerHTML = r1;
-	myRange1.value = r1;
+	slider1.value = r1;
 
 	output2.innerHTML = r2;
-	myRange2.value = r2;
+	slider2.value = r2;
 
     }
   }
 
 	calcTotal();
+	drawChart();
 }
 
 function calcTotal() {
@@ -148,9 +149,6 @@ var canvasHeight = Math.round(window.innerHeight / 5);
 c.height = canvasHeight;
 c.width = window.innerWidth;
 
-var lauric = 48;
-var lauricHeight = calcHeight(lauric, canvasHeight);
-var lauricY = calcY(lauricHeight, canvasHeight);
 
 var myristic = 20;
 var myristicHeight = calcHeight(myristic, canvasHeight);
@@ -159,6 +157,23 @@ var myristicY = calcY(myristic, canvasHeight);
 var linoleic = 2;
 var linoleicHeight = calcHeight(linoleic, canvasHeight);
 var linoleicY = calcY(linoleic, canvasHeight);
+
+function Oil(name) {
+	this.name = name;
+	this.properties = function() {
+		return "Oil: " + this.name + " " + this.lauric; 
+	}
+}
+
+var oliveOil = new Oil("Olive Oil");
+oliveOil.lauric = 48;
+oliveOil.myristic = 20;
+oliveOil.linoleic = 2;
+oliveOil.oleic = 8;
+oliveOil.palmitic = 9.5;
+oliveOil.ricinoleic = 0;
+oliveOil.stearic = 2;
+oliveOil.iodine = 9.5;
 
 function calcHeight(value, canvasHeight) {
 	var ratio = value / 100;
@@ -172,9 +187,42 @@ function calcY(value, height) {
 //ctx.fillRect(x, y, width, height);
 ctx.strokeRect(0, 0, c.width, c.height);
 
-ctx.fillRect(5, lauricY, width, lauricHeight);
 ctx.fillRect(50, myristicY, width, myristicHeight);
 ctx.fillRect(95, linoleicY, width, linoleicHeight);
+
+function drawChart() {
+	drawLauric();
+	drawMyristic();
+	drawLinoleic();
+}
+
+var lauricY;
+var lauric;
+var lauricHeight;
+
+function drawLauric() {
+	//var lauric = 48;
+	clearLauric();
+	lauric = (oliveOil.lauric * slider1.value) / 100;
+	lauricHeight = calcHeight(lauric, canvasHeight);
+	lauricY = calcY(lauricHeight, canvasHeight);
+	ctx.fillRect(5, lauricY, width, lauricHeight);
+}
+
+function clearLauric() {
+	ctx.clearRect(5, lauricY - 1, width, lauricHeight);
+}
+
+function drawMyristic() {
+
+}
+
+function drawLinoleic() {
+
+}
+
+drawChart();
+
 
 // Coconut
 //
