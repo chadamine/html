@@ -165,15 +165,57 @@ function Oil(name) {
 	}
 }
 
+// COCONUT
+// SAP NaOH/KOH: .178/.251
+// Luaric: 48
+// Myristic: 20
+// Linoleic: 2 
+// Oleic: 8
+// Palmitic: 9.5
+// Ricinoleic: 0
+// Stearic: 2
+// Iodine: 9.5
+
+var coconutOil = new Oil("Coconut Oil");
+coconutOil.lauric = 48;
+coconutOil.myristic = 20;
+coconutOil.linoleic = 2;
+coconutOil.oleic = 8;
+coconutOil.palmitic = 9.5;
+coconutOil.ricinoleic = 0;
+coconutOil.stearic = 2;
+coconutOil.iodine = 9.5;
+
+// OLIVE
+// SAP NaOH/KOH: .135/.190
+// Luaric: 0
+// Myristic: 0
+// Linoleic: 10 
+// Oleic: 68
+// Palmitic: 12
+// Ricinoleic: 0
+// Stearic: 4
+// Iodine: 87
+
 var oliveOil = new Oil("Olive Oil");
-oliveOil.lauric = 48;
-oliveOil.myristic = 20;
-oliveOil.linoleic = 2;
-oliveOil.oleic = 8;
-oliveOil.palmitic = 9.5;
+oliveOil.lauric = 0;
+oliveOil.myristic = 0;
+oliveOil.linoleic = 10;
+oliveOil.oleic = 68;
+oliveOil.palmitic = 12;
 oliveOil.ricinoleic = 0;
-oliveOil.stearic = 2;
-oliveOil.iodine = 9.5;
+oliveOil.stearic = 4;
+oliveOil.iodine = 87;
+
+var palmOil = new Oil("Palm Oil");
+palmOil.lauric = 0;
+palmOil.myristic = 0;
+palmOil.linoleic = 0;
+palmOil.oleic = 0;
+palmOil.palmitic = 0;
+palmOil.ricinoleic = 0;
+palmOil.stearic = 0;
+palmOil.iodine = 0;
 
 function calcHeight(value, canvasHeight) {
 	var ratio = value / 100;
@@ -187,23 +229,39 @@ function calcY(value, height) {
 //ctx.fillRect(x, y, width, height);
 ctx.strokeRect(0, 0, c.width, c.height);
 
-ctx.fillRect(50, myristicY, width, myristicHeight);
-ctx.fillRect(95, linoleicY, width, linoleicHeight);
+//ctx.fillRect(50, myristicY, width, myristicHeight);
+//ctx.fillRect(95, linoleicY, width, linoleicHeight);
 
 function drawChart() {
 	drawLauric();
 	drawMyristic();
 	drawLinoleic();
+	drawOleic();
+	drawPalmitic();
+	drawRicinoleic();
+	drawStearic();
+	drawIodine();
 }
 
 var lauricY;
 var lauric;
 var lauricHeight;
 
+var myristicY;
+var myristic;
+var myristicHeight;
+
+var linoleic;
+var linoleicY;
+var linoleicHeight;
+
+var oleic;
+var oleicY;
+var oleicHeight;
+
 function drawLauric() {
-	//var lauric = 48;
 	clearLauric();
-	lauric = (oliveOil.lauric * slider1.value) / 100;
+	lauric = ((coconutOil.lauric * slider2.value) + (oliveOil.lauric * slider1.value)) / 100;
 	lauricHeight = calcHeight(lauric, canvasHeight);
 	lauricY = calcY(lauricHeight, canvasHeight);
 	ctx.fillRect(5, lauricY, width, lauricHeight);
@@ -214,25 +272,44 @@ function clearLauric() {
 }
 
 function drawMyristic() {
+	clearMyristic();
+	myristic = ((oliveOil.lauric * slider1.value) + (coconutOil.myristic * slider2.value)) / 100;
+	myristicHeight = calcHeight(myristic, canvasHeight);
+	myristicY = calcY(myristicHeight, canvasHeight);
+	ctx.fillRect(50, myristicY, width, myristicHeight);
+}
 
+function clearMyristic() {
+	ctx.clearRect(50, myristicY - 1, width, myristicHeight);
 }
 
 function drawLinoleic() {
+	clearLinoleic();
+	linoleic = ((oliveOil.linoleic * slider1.value) + (coconutOil.linoleic * slider2.value)) / 100;
+	linoleicHeight = calcHeight(linoleic, canvasHeight);
+	linoleicY = calcY(linoleicHeight, canvasHeight);
+	//alert("linoleicHeight: " + linoleicHeight + " canvasHeight: " + canvasHeight);
+	ctx.fillRect(95, linoleicY, width, linoleicHeight);
+}
 
+function clearLinoleic() {
+	ctx.clearRect(95, linoleicY - 1, width, linoleicHeight);
+}
+
+function drawOleic() {
+	alert("test");
+	clearOleic();
+	oleic = ((oliveOil.oleic * slider1.value) + (coconutOil.oleic * slider2.value) + (palmOil.oleic * slider3.value)) / 100;
+	oleicHeight = calcHeight(oleic, canvasHeight);
+	oleicY = calcY(oleicHeight, canvasHeight);
+	ctx.fillRect(140, oleicY, width, oleicHeight);
+}
+
+function clearOleic() {
+	ctx.clearRect(140, oleicY - 1, width, oleicHeight);
 }
 
 drawChart();
 
 
-// Coconut
-//
-// SAP NaOH/KOH: .178/.251
-// Luaric: 48
-// Myristic: 20
-// Linoleic: 2 
-// Oleic: 8
-// Palmitic: 9.5
-// Ricinoleic: 0
-// Stearic: 2
-// Iodine: 9.5
 
