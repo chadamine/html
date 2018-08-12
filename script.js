@@ -141,22 +141,20 @@ function round(number) {
 }
 
 //simplest barchart
-var c = document.getElementById("results_canvas");
-var ctx = c.getContext("2d");
+var fc = document.getElementById("fattyacids_canvas");
+var ctx = fc.getContext("2d");
 var width = 40; // bar width
 var canvasHeight = Math.round(window.innerHeight / 5);
 
-c.height = canvasHeight;
-c.width = window.innerWidth;
+var qc = document.getElementById("quality_canvas");
+var qctx = qc.getContext("2d");
+var qcHeight = canvasHeight;
 
+fc.height = canvasHeight;
+fc.width = window.innerWidth;
 
-var myristic = 20;
-var myristicHeight = calcHeight(myristic, canvasHeight);
-var myristicY = calcY(myristic, canvasHeight);
-
-var linoleic = 2;
-var linoleicHeight = calcHeight(linoleic, canvasHeight);
-var linoleicY = calcY(linoleic, canvasHeight);
+qc.height = canvasHeight;
+qc.width = window.innerWidth;
 
 function Oil(name) {
 	this.name = name;
@@ -210,12 +208,12 @@ oliveOil.iodine = 87;
 var palmOil = new Oil("Palm Oil");
 palmOil.lauric = 0;
 palmOil.myristic = 0;
-palmOil.linoleic = 0;
-palmOil.oleic = 0;
-palmOil.palmitic = 0;
+palmOil.linoleic = 8;
+palmOil.oleic = 40;
+palmOil.palmitic = 45;
 palmOil.ricinoleic = 0;
-palmOil.stearic = 0;
-palmOil.iodine = 0;
+palmOil.stearic = 5.5;
+palmOil.iodine = 53;
 
 function calcHeight(value, canvasHeight) {
 	var ratio = value / 100;
@@ -226,11 +224,22 @@ function calcY(value, height) {
 	return height - value;
 }
 
-//ctx.fillRect(x, y, width, height);
-ctx.strokeRect(0, 0, c.width, c.height);
+// Draw bar graph canvas outlines
+ctx.strokeRect(0, 0, fc.width, fc.height);
+qctx.strokeRect(0, 0, qc.width, qc.height);
 
-//ctx.fillRect(50, myristicY, width, myristicHeight);
-//ctx.fillRect(95, linoleicY, width, linoleicHeight);
+function drawQualities() {
+	drawHardness();
+	drawCleansing();
+	drawConditioning();
+	drawLather();
+	drawCreamy();
+	//drawIodine();
+}
+
+function drawHardness() {
+
+}
 
 function drawChart() {
 	drawLauric();
@@ -240,7 +249,7 @@ function drawChart() {
 	drawPalmitic();
 	drawRicinoleic();
 	drawStearic();
-	drawIodine();
+	//drawIodine();
 }
 
 var lauricY;
@@ -259,9 +268,27 @@ var oleic;
 var oleicY;
 var oleicHeight;
 
+var palmitic;
+var palmiticY;
+var palmiticHeight;
+
+var ricinoleic;
+var ricinoleicY;
+var ricinoleicHeight;
+
+var stearic;
+var stearicY;
+var stearicHeight;
+
+var iodine;
+var iodineY;
+var iodineHeight;
+
 function drawLauric() {
 	clearLauric();
-	lauric = ((coconutOil.lauric * slider2.value) + (oliveOil.lauric * slider1.value)) / 100;
+	lauric = ((coconutOil.lauric * slider2.value) 
+		+ (oliveOil.lauric * slider1.value)
+		+ (palmOil.lauric * slider3.value)) / 100;
 	lauricHeight = calcHeight(lauric, canvasHeight);
 	lauricY = calcY(lauricHeight, canvasHeight);
 	ctx.fillRect(5, lauricY, width, lauricHeight);
@@ -273,7 +300,9 @@ function clearLauric() {
 
 function drawMyristic() {
 	clearMyristic();
-	myristic = ((oliveOil.lauric * slider1.value) + (coconutOil.myristic * slider2.value)) / 100;
+	myristic = ((oliveOil.lauric * slider1.value) 
+		+ (coconutOil.myristic * slider2.value)
+		+ (palmOil.myristic * slider3.value)) / 100;
 	myristicHeight = calcHeight(myristic, canvasHeight);
 	myristicY = calcY(myristicHeight, canvasHeight);
 	ctx.fillRect(50, myristicY, width, myristicHeight);
@@ -285,10 +314,11 @@ function clearMyristic() {
 
 function drawLinoleic() {
 	clearLinoleic();
-	linoleic = ((oliveOil.linoleic * slider1.value) + (coconutOil.linoleic * slider2.value)) / 100;
+	linoleic = ((oliveOil.linoleic * slider1.value) 
+		+ (coconutOil.linoleic * slider2.value)
+		+ (palmOil.linoleic * slider3.value)) / 100;
 	linoleicHeight = calcHeight(linoleic, canvasHeight);
 	linoleicY = calcY(linoleicHeight, canvasHeight);
-	//alert("linoleicHeight: " + linoleicHeight + " canvasHeight: " + canvasHeight);
 	ctx.fillRect(95, linoleicY, width, linoleicHeight);
 }
 
@@ -297,9 +327,10 @@ function clearLinoleic() {
 }
 
 function drawOleic() {
-	alert("test");
 	clearOleic();
-	oleic = ((oliveOil.oleic * slider1.value) + (coconutOil.oleic * slider2.value) + (palmOil.oleic * slider3.value)) / 100;
+	oleic = ((oliveOil.oleic * slider1.value) 
+		+ (coconutOil.oleic * slider2.value) 
+		+ (palmOil.oleic * slider3.value)) / 100;
 	oleicHeight = calcHeight(oleic, canvasHeight);
 	oleicY = calcY(oleicHeight, canvasHeight);
 	ctx.fillRect(140, oleicY, width, oleicHeight);
@@ -309,7 +340,78 @@ function clearOleic() {
 	ctx.clearRect(140, oleicY - 1, width, oleicHeight);
 }
 
+function drawPalmitic() {
+	clearPalmitic();
+	palmitic = ((oliveOil.palmitic * slider1.value)
+		+ (coconutOil.palmitic * slider2.value)
+		+ (palmOil.palmitic * slider3.value)) / 100;
+	palmiticHeight = calcHeight(palmitic, canvasHeight);
+	palmiticY = calcY(palmiticHeight, canvasHeight);
+	ctx.fillRect(185, palmiticY, width, palmiticHeight);
+}
+
+function clearPalmitic() {
+	ctx.clearRect(185, palmiticY - 1, width, palmiticHeight);
+}
+
+function drawRicinoleic() {
+	clearRicinoleic();
+	ricinoleic = ((oliveOil.ricinoleic * slider1.value)
+		+ (coconutOil.ricinoleic * slider2.value)
+		+ (palmOil.ricinoleic * slider3.value)) / 100;
+	ricinoleicHeight = calcHeight(ricinoleic, canvasHeight);
+	ricinoleicY = calcY(ricinoleicHeight, canvasHeight);
+	ctx.fillRect(230, ricinoleicY, width, ricinoleicHeight);
+}
+
+function clearRicinoleic() {
+	ctx.clearRect(230, ricinoleicY - 1, width, ricinoleicHeight);
+}
+
+function drawStearic() {
+	clearStearic();
+	stearic = ((oliveOil.stearic * slider1.value)
+		+ (coconutOil.stearic * slider2.value)
+		+ (palmOil.stearic * slider3.value)) / 100;
+	stearicHeight = calcHeight(stearic, canvasHeight);
+	stearicY = calcY(stearicHeight, canvasHeight);
+	ctx.fillRect(275, stearicY, width, stearicHeight);
+}
+
+function clearStearic() {
+	ctx.clearRect(275, stearicY - 1, width, stearicHeight);
+}
+
 drawChart();
 
+function drawRanges() {
 
+	hardnessLow = canvasHeight - (qc.height * 0.29);
+	hardnessHigh = canvasHeight - (qc.height * 0.54);
 
+	//ctx.moveTo(5,50);
+	//ctx.lineTo(45,50);
+	//ctx.strokeStyle="#FF0000";
+
+	//ctx.moveTo(50,50);
+	//ctx.lineTo(90,50);
+	//ctx.stroke();
+
+}
+
+drawRanges();
+
+//Hardness: Lauric, Myristic, Palmitic, Stearic
+//29-54
+//Cleansing: Lauric, Myristic
+//12-22
+//Lather(bubbly): Lauric, Myristic
+//14-46
+//Conditioning: Linoleic, Oleic
+//44-69
+//Creamy: Palmitic, Stearic
+//16-48
+//Iodine
+//41-70
+//INS
+//136-165
