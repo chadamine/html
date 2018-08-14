@@ -121,6 +121,7 @@ function adjust(num) {
 
 	calcTotal();
 	drawChart();
+	drawQualities();
 }
 
 function calcTotal() {
@@ -237,8 +238,33 @@ function drawQualities() {
 	//drawIodine();
 }
 
+var hardness;
+var hardnessHeight;
+var hardnessY;
+
 function drawHardness() {
 
+	var val1 = slider1.value;
+	qctx.clearRect(5, hardnessY - 1, width, hardnessHeight);
+
+	hardness = (oliveOil.lauric * val1) 
+		+ (oliveOil.myristic * val1) 
+		+ (oliveOil.palmitic * val1) 
+		+ (oliveOil.stearic * val1) 
+
+		+ (coconutOil.lauric * val2) 
+		+ (coconutOil.myristic * val2) 
+		+ (coconutOil.palmitic * val2) 
+		+ (coconutOil.stearic * val2) 
+
+		+ (palmOil.lauric * val3) 
+		+ (palmOil.myristic * val3) 
+		+ (palmOil.palmitic * val3)
+		+ (palmOil.stearic * val3); 
+
+	hardnessHeight = calcHeight(hardness, qcHeight);
+	hardnessY = calcY(hardnessHeight, qcHeight);
+	qctx.fillRect(5, hardnessY, width, hardnessHeight);
 }
 
 function drawChart() {
