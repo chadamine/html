@@ -152,10 +152,10 @@ var qctx = qc.getContext("2d");
 var qcHeight = canvasHeight;
 
 fc.height = canvasHeight;
-fc.width = window.innerWidth;
+fc.width = window.innerWidth * 0.7;
 
 qc.height = canvasHeight;
-qc.width = window.innerWidth;
+qc.width = window.innerWidth * 0.7;
 
 function Oil(name) {
 	this.name = name;
@@ -229,6 +229,8 @@ function calcY(value, height) {
 ctx.strokeRect(0, 0, fc.width, fc.height);
 qctx.strokeRect(0, 0, qc.width, qc.height);
 
+drawRanges();
+
 function drawQualities() {
 	drawHardness();
 	drawCleansing();
@@ -236,16 +238,41 @@ function drawQualities() {
 	drawLather();
 	drawCreamy();
 	//drawIodine();
+	drawRanges();
 }
 
 var hardness;
 var hardnessHeight;
 var hardnessY;
 
+var cleansing;
+var cleansingY;
+var cleansingHeight;
+
+var conditioning;
+var conditioningHeight;
+var conditioningY;
+
+var lather;
+var latherHeight;
+var latherY;
+
+var creamy;
+var creamyHeight;
+var creamyY;
+
+var iodine;
+var iodineHeight;
+var iodineY;
+
+// 1
 function drawHardness() {
 
-	var val1 = slider1.value;
-	qctx.clearRect(5, hardnessY - 1, width, hardnessHeight);
+	var val1 = slider1.value / 100;
+	var val2 = slider2.value / 100;
+	var val3 = slider3.value / 100;
+
+	qctx.clearRect(30, hardnessY - 1, width, hardnessHeight);
 
 	hardness = (oliveOil.lauric * val1) 
 		+ (oliveOil.myristic * val1) 
@@ -264,7 +291,94 @@ function drawHardness() {
 
 	hardnessHeight = calcHeight(hardness, qcHeight);
 	hardnessY = calcY(hardnessHeight, qcHeight);
-	qctx.fillRect(5, hardnessY, width, hardnessHeight);
+	qctx.fillRect(30, hardnessY, width, hardnessHeight);
+	//alert("HardnessY: " + hardnessY + " slider3: " + val3);
+}
+
+//2
+function drawCleansing() {
+	
+	var val1 = slider1.value / 100;
+	var val2 = slider2.value / 100;
+	var val3 = slider3.value / 100;
+
+	qctx.clearRect(130, cleansingY - 1, width, cleansingHeight);
+
+	cleansing = (oliveOil.lauric * val1)
+	+ (oliveOil.myristic * val1)
+	+ (coconutOil.lauric * val2)
+	+ (coconutOil.myristic * val2)
+	+ (palmOil.lauric * val3)
+	+ (palmOil.myristic * val3);
+
+	cleansingHeight = calcHeight(cleansing, qcHeight);
+	cleansingY = calcY(cleansingHeight, qcHeight);
+	qctx.fillRect(130, cleansingY, width, cleansingHeight);
+}
+
+//3
+function drawConditioning() {
+
+	var val1 = slider1.value / 100;
+	var val2 = slider2.value / 100;
+	var val3 = slider3.value / 100;
+
+	qctx.clearRect(230, conditioningY - 1, width, conditioningHeight);
+
+	conditioning = (oliveOil.linoleic * val1)
+	+ (oliveOil.oleic * val1)
+	+ (coconutOil.linoleic * val2)
+	+ (coconutOil.oleic * val2)
+	+ (palmOil.linoleic * val3)
+	+ (palmOil.oleic * val3);
+
+	conditioningHeight = calcHeight(conditioning, qcHeight);
+	conditioningY = calcY(conditioningHeight, qcHeight);
+	qctx.fillRect(230, conditioningY, width, conditioningHeight);
+}
+
+//4
+function drawLather() {
+
+	var val1 = slider1.value / 100;
+	var val2 = slider2.value / 100;
+	var val3 = slider3.value / 100;
+	
+	qctx.clearRect(330, latherY - 1, width, latherHeight);
+
+	lather = (oliveOil.lauric * val1)
+	+ (oliveOil.myristic * val1)
+	+ (coconutOil.lauric * val2)
+	+ (coconutOil.myristic * val2)
+	+ (palmOil.lauric * val3)
+	+ (palmOil.myristic * val3);
+
+	latherHeight = calcHeight(lather, qcHeight);
+	latherY = calcY(latherHeight, qcHeight);
+	qctx.fillRect(330, latherY, width, latherHeight);
+
+}
+
+//5
+function drawCreamy() {
+
+	var val1 = slider1.value / 100;
+	var val2 = slider2.value / 100;
+	var val3 = slider3.value / 100;
+	
+	qctx.clearRect(430, creamyY - 1, width, creamyHeight);
+
+	creamy = (oliveOil.palmitic * val1)
+	+ (oliveOil.stearic * val1)
+	+ (coconutOil.palmitic * val2)
+	+ (coconutOil.stearic * val2)
+	+ (palmOil.palmitic * val3)
+	+ (palmOil.stearic * val3);
+
+	creamyHeight = calcHeight(creamy, qcHeight);
+	creamyY = calcY(creamyHeight, qcHeight);
+	qctx.fillRect(430, creamyY, width, creamyHeight);
+
 }
 
 function drawChart() {
@@ -410,34 +524,74 @@ function clearStearic() {
 
 drawChart();
 
-function drawRanges() {
-
-	hardnessLow = canvasHeight - (qc.height * 0.29);
-	hardnessHigh = canvasHeight - (qc.height * 0.54);
-
-	//ctx.moveTo(5,50);
-	//ctx.lineTo(45,50);
-	//ctx.strokeStyle="#FF0000";
-
-	//ctx.moveTo(50,50);
-	//ctx.lineTo(90,50);
-	//ctx.stroke();
-
-}
-
-drawRanges();
-
 //Hardness: Lauric, Myristic, Palmitic, Stearic
 //29-54
 //Cleansing: Lauric, Myristic
 //12-22
-//Lather(bubbly): Lauric, Myristic
-//14-46
 //Conditioning: Linoleic, Oleic
 //44-69
+//Lather(bubbly): Lauric, Myristic
+//14-46
 //Creamy: Palmitic, Stearic
 //16-48
 //Iodine
 //41-70
 //INS
 //136-165
+
+function drawRanges() {
+
+	var h = canvasHeight;
+	var ch = qc.height;
+
+	hardnessLow = h - (ch * 0.29);
+	hardnessHigh = h - (ch * 0.54);
+
+	cleansingLow = h - (ch * .12);
+	cleansingHigh = h - (ch * .22);
+
+	conditioningLow = h - (ch * .44);
+	conditioningHigh = h - (ch * .69);
+	
+	latherLow = h - (ch * .14);
+	latherHigh = h - (ch * .46);
+	
+	creamyLow = h - (ch * .16);
+	creamyHigh = h - (ch * .48);
+
+	qctx.strokeStyle="#FF0000";
+	qctx.moveTo(30, hardnessLow);
+	qctx.lineTo(70, hardnessLow);
+	qctx.stroke();
+	qctx.moveTo(30, hardnessHigh);
+	qctx.lineTo(70, hardnessHigh);
+	qctx.stroke();	
+
+	qctx.moveTo(130, cleansingLow);
+	qctx.lineTo(170, cleansingLow);
+	qctx.stroke();	
+	qctx.moveTo(130, cleansingHigh);
+	qctx.lineTo(170, cleansingHigh);
+	qctx.stroke();	
+
+	qctx.moveTo(230, conditioningLow);
+	qctx.lineTo(270, conditioningLow);
+	qctx.stroke();	
+	qctx.moveTo(230, conditioningHigh);
+	qctx.lineTo(270, conditioningHigh);
+	qctx.stroke();	
+
+	qctx.moveTo(330, latherLow);
+	qctx.lineTo(370, latherLow);
+	qctx.stroke();	
+	qctx.moveTo(330, latherHigh);
+	qctx.lineTo(370, latherHigh);
+	qctx.stroke();	
+	
+	qctx.moveTo(430, creamyLow);
+	qctx.lineTo(470, creamyLow);
+	qctx.stroke();	
+	qctx.moveTo(430, creamyHigh);
+	qctx.lineTo(470, creamyHigh);
+	qctx.stroke();	
+}
