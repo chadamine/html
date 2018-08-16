@@ -10,6 +10,10 @@ p {
 		text-align: center;
 }
 
+p.small {
+	width: 60px;
+}
+
 .slidecontainer {
     width: 50%;
 }
@@ -56,8 +60,10 @@ p {
 </head>
 <body>
 
-<h1>Round Range Slider</h1>
+<h1>Oil Ratio Calculator</h1>
+
 Total: <span id="total_title"></span><span id="total"></span>
+
 <div class="sliders">
 	<div class="slidecontainer">
 	  <h2>Olive Oil</h2>
@@ -67,21 +73,29 @@ Total: <span id="total_title"></span><span id="total"></span>
 	  Value: <span id="demo1"></span>
 	</div>
 
-<div class="slidecontainer">
-  <h2>Coconut Oil</h2>
-	<button onClick="decrement(slider2, output2, 2)">-</button>
-  <input type="range" min="0" max="100" value="0" class="slider" id="myRange2">
-	<button onClick="increment(slider2, output2, 2)">+</button>
-  Value: <span id="demo2"></span>
-</div>
+	<div class="slidecontainer">
+		<h2>Coconut Oil</h2>
+		<button onClick="decrement(slider2, output2, 2)">-</button>
+		<input type="range" min="0" max="100" value="0" class="slider" id="myRange2">
+		<button onClick="increment(slider2, output2, 2)">+</button>
+		Value: <span id="demo2"></span>
+	</div>
 
-<div class="slidecontainer">
-  <h2>Palm Oil</h2>
-	<button onClick="decrement(slider3, output3, 3)">-</button>
-  <input type="range" min="0" max="100" value="0" class="slider" id="myRange3">
-	<button onClick="increment(slider3, output3, 3)">+</button>
-  Value: <span id="demo3"></span>
-</div>
+	<div class="slidecontainer">
+		<h2>Palm Oil</h2>
+		<button onClick="decrement(slider3, output3, 3)">-</button>
+		<input type="range" min="0" max="100" value="0" class="slider" id="myRange3">
+		<button onClick="increment(slider3, output3, 3)">+</button>
+		Value: <span id="demo3"></span>
+	</div>
+
+	<div class="slidecontainer">
+		<h2>Mango Butter</h2>
+		<button onClick="decrement(slider4, output4, 4)">-</button>
+		<input type="range" min="0" max="100" value="0" class="slider" id="myRange4">
+		<button onClick="increment(slider4, output4, 4)">+</button>
+		Value: <span id="demo4"></span>
+	</div>
 </div>
 
 <div class="result_values">
@@ -94,15 +108,15 @@ Total: <span id="total_title"></span><span id="total"></span>
 <canvas id="fattyacids_canvas"></canvas>
 
 <div class="fatty_acids">
-	<p>SAP Value</p>
-	<p>Lauric</p>
-	<p>Myristic</p>
-	<p>Linoleic</p>
-	<p>Oleic</p>
-	<p>Palmitic</p>
-	<p>Ricinoleic</p>
-	<p>Stearic</p>
-	<p>Iodine</p>
+	<p class="small">SAP Value</p>
+	<p class="small">Lauric</p>
+	<p class="small">Myristic</p>
+	<p class="small">Linoleic</p>
+	<p class="small"> Oleic</p>
+	<p class="small">Palmitic</p>
+	<p class="small">Ricinoleic</p>
+	<p class="small">Stearic</p>
+	<p class="small">Iodine</p>
 </div>
 
 <canvas id="quality_canvas"></canvas>
