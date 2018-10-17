@@ -624,6 +624,20 @@ function drawCreamy() {
 
 }
 
+function drawRange(x1, x2, low, high) {
+
+	var ch = qc.height;
+	
+	qctx.strokeStyle="#FF0000";
+	qctx.moveTo(x1, low);
+	qctx.lineTo(x2, low);
+	qctx.stroke();
+	qctx.moveTo(x1, high);
+	qctx.lineTo(x2, high);
+	qctx.stroke();	
+
+}
+
 // Draw quality ranges in quality bar chart
 function drawRanges() {
 
@@ -645,39 +659,9 @@ function drawRanges() {
 	creamyLow = h - (ch * .16);
 	creamyHigh = h - (ch * .48);
 
-	qctx.strokeStyle="#FF0000";
-	qctx.moveTo(30, hardnessLow);
-	qctx.lineTo(70, hardnessLow);
-	qctx.stroke();
-	qctx.moveTo(30, hardnessHigh);
-	qctx.lineTo(70, hardnessHigh);
-	qctx.stroke();	
-
-	qctx.moveTo(130, cleansingLow);
-	qctx.lineTo(170, cleansingLow);
-	qctx.stroke();	
-	qctx.moveTo(130, cleansingHigh);
-	qctx.lineTo(170, cleansingHigh);
-	qctx.stroke();	
-
-	qctx.moveTo(230, conditioningLow);
-	qctx.lineTo(270, conditioningLow);
-	qctx.stroke();	
-	qctx.moveTo(230, conditioningHigh);
-	qctx.lineTo(270, conditioningHigh);
-	qctx.stroke();	
-
-	qctx.moveTo(330, latherLow);
-	qctx.lineTo(370, latherLow);
-	qctx.stroke();	
-	qctx.moveTo(330, latherHigh);
-	qctx.lineTo(370, latherHigh);
-	qctx.stroke();	
-	
-	qctx.moveTo(450, creamyLow);
-	qctx.lineTo(490, creamyLow);
-	qctx.stroke();	
-	qctx.moveTo(450, creamyHigh);
-	qctx.lineTo(490, creamyHigh);
-	qctx.stroke();	
+	drawRange(30, 70, hardnessLow, hardnessHigh);
+	drawRange(130, 170, cleansingLow, cleansingHigh);
+	drawRange(230, 270, conditioningLow, conditioningHigh);
+	drawRange(330, 370, latherLow, latherHigh);
+	drawRange(430, 470, creamyLow, creamyHigh);
 }
